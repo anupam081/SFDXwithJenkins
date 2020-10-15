@@ -48,9 +48,9 @@ node {
 
             //Check status
             if (isUnix()) {
-				rmsg1 = sh returnStdout: true, script: "${toolbelt}/sfdx force:source:deploy:report -u ${HUB_ORG}"
+				rmsg1 = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy:report -u ${HUB_ORG}"
 			}else{
-			   rmsg1 = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy:report -u ${HUB_ORG}"
+			   rmsg1 = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:mdapi:deploy:report -u ${HUB_ORG}"
 			}
 
             println('Deployment report is -- ')
