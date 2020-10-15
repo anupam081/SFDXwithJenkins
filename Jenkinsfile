@@ -33,8 +33,9 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
+            println('Deploying code to the Org from Repository')
 			
-			// need to pull out assigned username
+			// Deploy code
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:source:deploy -p force-app/. -u ${HUB_ORG}"
 			}else{
@@ -42,10 +43,18 @@ node {
 			}
 			  
             printf rmsg
-            println('Hello from a Job DSL script!')
+            println('Check deployment status')
             println(rmsg)
 
-            
+            //Check status
+            if (isUnix()) {
+				rmsg1 = sh returnStdout: true, script: "${toolbelt}/sfdx force:source:deploy:report -u ${HUB_ORG}"
+			}else{
+			   rmsg1 = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy:report -u ${HUB_ORG}"
+			}
+
+            println('Deployment report is -- ')
+            println(rmsg1)
         }
     }
 }
